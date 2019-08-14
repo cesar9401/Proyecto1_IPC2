@@ -1,3 +1,5 @@
+package proyecto;
+
 
 /**
  *
@@ -5,6 +7,7 @@
  */
 public class Cliente {
     
+    private String id_Cliente;
     private int nit;
     private String nombre;
     private int telefono;
@@ -17,6 +20,14 @@ public class Cliente {
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
+    }
+
+    public String getId_Cliente() {
+        return id_Cliente;
+    }
+
+    public void setId_Cliente(String id_Cliente) {
+        this.id_Cliente = id_Cliente;
     }
 
     public int getNit() {
@@ -61,7 +72,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "nit=" + nit + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + '}';
+        return "Cliente{" + "id_Cliente=" + id_Cliente + ", nit=" + nit + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + '}';
     }
-    
+
 }

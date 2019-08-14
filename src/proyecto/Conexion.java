@@ -1,3 +1,5 @@
+package proyecto;
+
 
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
@@ -28,7 +30,7 @@ public class Conexion {
     public void desconectar(){
         try {
             connection.close();
-            System.out.println("Desconesctado " + connection.getCatalog());
+            System.out.println("Desconectado " + connection.getCatalog());
         } catch (SQLException ex) {
             System.out.println("No se pudo cerrar conexion");
         }
