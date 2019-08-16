@@ -11,12 +11,14 @@ public class PuntosDeControl {
     private String nombreCiudad;
     private double tarifa;
     private int tamañoBodega;
+    private String encargado;
 
-    public PuntosDeControl(String codigo, String nombreCiudad, double tarifa, int tamañoBodega) {
+    public PuntosDeControl(String codigo, String nombreCiudad, double tarifa, int tamañoBodega, String encargado) {
         this.codigo = codigo;
         this.nombreCiudad = nombreCiudad;
         this.tarifa = tarifa;
         this.tamañoBodega = tamañoBodega;
+        this.encargado = encargado;
     }
 
     public String getCodigo() {
@@ -49,5 +51,13 @@ public class PuntosDeControl {
 
     public void setTamañoBodega(int tamañoBodega) {
         this.tamañoBodega = tamañoBodega;
+    }
+
+    public String getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(String encargado) {
+        this.encargado = encargado;
     }
 }

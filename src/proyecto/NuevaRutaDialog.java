@@ -112,11 +112,21 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
         columnBinding.setColumnName("Tarifa");
         columnBinding.setColumnClass(Double.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
+        columnBinding.setColumnName("Encargado");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${puntoSeleccionado}"), tablaPuntosRuta, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane1.setViewportView(tablaPuntosRuta);
+        if (tablaPuntosRuta.getColumnModel().getColumnCount() > 0) {
+            tablaPuntosRuta.getColumnModel().getColumn(0).setResizable(false);
+            tablaPuntosRuta.getColumnModel().getColumn(1).setResizable(false);
+            tablaPuntosRuta.getColumnModel().getColumn(2).setResizable(false);
+            tablaPuntosRuta.getColumnModel().getColumn(3).setResizable(false);
+            tablaPuntosRuta.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         AgregarPuntoBoton.setText("Agregar");
         AgregarPuntoBoton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,9 +149,19 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
         columnBinding.setColumnName("Tarifa");
         columnBinding.setColumnClass(Double.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
+        columnBinding.setColumnName("Encargado");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -358,7 +378,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
                 if(nombreTabla.equals("rutas")){
                     contadorRutas++;
                 }else{
-                    PuntosDeControl puntos = new PuntosDeControl(r.getString("codigo"), r.getString("nombreCiudad"), r.getDouble("tarifa"), r.getInt("tamañoBodega"));
+                    PuntosDeControl puntos = new PuntosDeControl(r.getString("codigo"), r.getString("nombreCiudad"), r.getDouble("tarifa"), r.getInt("tamañoBodega"), r.getString("encargado"));
                     puntosObservable.add(puntos);
                 }
             }

@@ -22,14 +22,19 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     
     private ObservableList<Ruta> rutaObservable;
     private List<Ruta> listadoRuta = new ArrayList<>();
+    
     private ObservableList<PuntosDeControl> puntosObservable;
     private List<PuntosDeControl> listadoPuntos = new ArrayList<>();
-
+    
+    private ObservableList<Precios> preciosObservable;
+    private List<Precios> listadoPrecios = new ArrayList<>();
     
     public VentanaAdministrador(Sistema sistema, String usuario) {
         usuariosObservable = ObservableCollections.observableList(listadoUsuario);
         rutaObservable = ObservableCollections.observableList(listadoRuta);
         puntosObservable = ObservableCollections.observableList(listadoPuntos);
+        preciosObservable = ObservableCollections.observableList(listadoPrecios);
+        
         this.sistema = sistema;
         this.usuario = usuario;
         initComponents();
@@ -54,6 +59,7 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         mostrarPuntos = new javax.swing.JButton();
         nuevoPCBoton = new javax.swing.JButton();
         eliminarPuntoBoton = new javax.swing.JButton();
+        editarPunto = new javax.swing.JButton();
         rutasPanel = new javax.swing.JPanel();
         mostrarRutas = new javax.swing.JButton();
         rutasScroll2 = new javax.swing.JScrollPane();
@@ -178,30 +184,30 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
         columnBinding.setColumnName("Nombre Ciudad");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
-        columnBinding.setColumnName("Tamaño de Bodega");
+        columnBinding.setColumnName("Tamaño Bodega");
         columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
-        columnBinding.setColumnName("Tarifa de Operacion");
+        columnBinding.setColumnName("Tarifa");
         columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
+        columnBinding.setColumnName("Encargado");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${puntoSeleccionado}"), puntosTabla, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         puntosScroll.setViewportView(puntosTabla);
         if (puntosTabla.getColumnModel().getColumnCount() > 0) {
-            puntosTabla.getColumnModel().getColumn(0).setResizable(false);
+            puntosTabla.getColumnModel().getColumn(0).setMinWidth(100);
             puntosTabla.getColumnModel().getColumn(0).setPreferredWidth(100);
-            puntosTabla.getColumnModel().getColumn(1).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(2).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(3).setResizable(false);
+            puntosTabla.getColumnModel().getColumn(1).setMinWidth(180);
+            puntosTabla.getColumnModel().getColumn(1).setPreferredWidth(180);
+            puntosTabla.getColumnModel().getColumn(4).setMinWidth(100);
+            puntosTabla.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
         mostrarPuntos.setText("Mostrar");
@@ -225,6 +231,13 @@ public class VentanaAdministrador extends javax.swing.JFrame{
             }
         });
 
+        editarPunto.setText("Editar");
+        editarPunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarPuntoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout puntosDeControlPanelLayout = new javax.swing.GroupLayout(puntosDeControlPanel);
         puntosDeControlPanel.setLayout(puntosDeControlPanelLayout);
         puntosDeControlPanelLayout.setHorizontalGroup(
@@ -233,16 +246,18 @@ public class VentanaAdministrador extends javax.swing.JFrame{
                 .addContainerGap()
                 .addGroup(puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
+                        .addComponent(puntosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(mostrarPuntos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nuevoPCBoton)
                         .addGap(18, 18, 18)
+                        .addComponent(editarPunto)
+                        .addGap(18, 18, 18)
                         .addComponent(eliminarPuntoBoton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
-                        .addComponent(puntosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         puntosDeControlPanelLayout.setVerticalGroup(
             puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +268,8 @@ public class VentanaAdministrador extends javax.swing.JFrame{
                 .addGroup(puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostrarPuntos)
                     .addComponent(nuevoPCBoton)
-                    .addComponent(eliminarPuntoBoton))
+                    .addComponent(eliminarPuntoBoton)
+                    .addComponent(editarPunto))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
@@ -468,14 +484,19 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         if(puntoSeleccionado == null){
             JOptionPane.showMessageDialog(this, "Seleccione un punto de control", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
-            System.out.println(puntoSeleccionado.getNombreCiudad());
+            System.out.println(puntoSeleccionado.getTarifa());
         }
     }//GEN-LAST:event_eliminarPuntoBotonActionPerformed
+
+    private void editarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPuntoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarPuntoActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutItem;
     private javax.swing.JMenuItem cerrarSesionItem;
     private javax.swing.JMenu cuentaMenu;
+    private javax.swing.JButton editarPunto;
     private javax.swing.JButton eliminarBoton;
     private javax.swing.JButton eliminarPuntoBoton;
     private javax.swing.JButton eliminarRutaBoton;
@@ -540,5 +561,13 @@ public class VentanaAdministrador extends javax.swing.JFrame{
 
     public void setPuntoSeleccionado(PuntosDeControl puntoSeleccionado) {
         this.puntoSeleccionado = puntoSeleccionado;
+    }
+    
+    public ObservableList<Precios> getPreciosObservable() {
+        return preciosObservable;
+    }
+
+    public void setPreciosObservable(ObservableList<Precios> preciosObservable) {
+        this.preciosObservable = preciosObservable;
     }
 }

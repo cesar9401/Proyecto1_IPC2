@@ -75,8 +75,13 @@ public class Sistema {
                 }
                 
                 if(nombreTabla.equals("puntosDeControl")){
-                    PuntosDeControl puntos = new PuntosDeControl(r.getString("codigo"), r.getString("nombreCiudad"), r.getDouble("tarifa"), r.getInt("tamañoBodega"));
+                    PuntosDeControl puntos = new PuntosDeControl(r.getString("codigo"), r.getString("nombreCiudad"), r.getDouble("tarifa"), r.getInt("tamañoBodega"), r.getString("encargado"));
                     inicio.admin.getPuntosObservable().add(puntos);
+                }
+                
+                if(nombreTabla.equals("precios")){
+                    Precios precio = new Precios(r.getInt("idPrecio"), r.getString("tipoDePago"), r.getDouble("precio"));
+                    inicio.admin.getPreciosObservable().add(precio);
                 }
             }
 

@@ -56,7 +56,7 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             .addGap(0, 612, Short.MAX_VALUE)
         );
 
-        recepcionistaTabbed.addTab("tab2", jPanel2);
+        recepcionistaTabbed.addTab("Nuevo Envio", jPanel2);
 
         cuentaMenu.setText("Cuenta");
 
