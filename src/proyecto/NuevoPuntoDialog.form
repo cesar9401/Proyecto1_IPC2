@@ -2,9 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.DialogFormInfo">
   <Properties>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[480, 310]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -58,27 +55,34 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tarifaL" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="codigoPuntoL" alignment="0" pref="60" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tarifaText" alignment="0" pref="130" max="32767" attributes="0"/>
-                                  <Component id="codigoText" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="tamañoL" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="tamañoCombo" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="codigoPuntoL" min="-2" pref="60" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="codigoText" min="-2" pref="130" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
                                       <Component id="ciudadL" min="-2" pref="60" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="ciudadText" min="-2" pref="130" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="tamañoL" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="tamañoCombo" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tarifaL" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="paisLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tarifaText" pref="130" max="32767" attributes="0"/>
+                                  <Component id="paisText" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -96,23 +100,37 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="codigoText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ciudadL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ciudadText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="codigoPuntoL" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="codigoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="codigoPuntoL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="paisLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="paisText" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tarifaL" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tarifaText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ciudadL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ciudadText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tamañoL" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tamañoCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="79" max="-2" attributes="0"/>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="confirmarPunto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelarPunto" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -133,6 +151,11 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="codigoTextKeyTyped"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="paisLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pais"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JLabel" name="ciudadL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ciudad: "/>
@@ -151,6 +174,7 @@
         <Component class="javax.swing.JTextField" name="tarifaText">
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tarifaTextKeyTyped"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tarifaTextKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="tama&#xf1;oL">
@@ -255,6 +279,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JTextField" name="paisText">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="paisTextKeyTyped"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

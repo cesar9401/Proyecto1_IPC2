@@ -1,13 +1,8 @@
 
 package proyecto;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
@@ -20,12 +15,12 @@ public class NuevaRutaDialog extends java.awt.Dialog {
 
     Sistema sistema;
     private int contadorPuntos = 0;
-    private int contadorRutas = 0;
     private ObservableList<PuntosDeControl> puntosObservable;
     private List<PuntosDeControl> listadoPuntos = new ArrayList<>();
     private ObservableList<PuntosDeControl> puntosRutaObservable;
     private List<PuntosDeControl> puntosRuta = new ArrayList<>();
     private PuntosDeControl puntoSeleccionado;
+    private double precio = 0;
     
     public NuevaRutaDialog(java.awt.Frame parent, Sistema sistema) {
         super(parent, true);
@@ -33,9 +28,12 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         puntosObservable = ObservableCollections.observableList(listadoPuntos);
         puntosRutaObservable = ObservableCollections.observableList(puntosRuta);
         initComponents();
-        MostrarTabla("rutas");
-        contadorRutas++;
-        rutaLabel.setText("Ruta # "+(contadorRutas));
+        sistema.setContadorRutas(0);
+        sistema.MostrarTabla("rutas");
+        sistema.setContadorRutas(sistema.getContadorRutas() + 1);
+        rutaLabel.setText("Ruta # "+(sistema.getContadorRutas()));
+        AgregarPuntoBoton.setEnabled(false);
+        AceparBoton.setEnabled(false);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,8 +54,10 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         AgregarPuntoBoton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        AceparBoton = new javax.swing.JButton();
         cancelarRuta = new javax.swing.JButton();
+        paisLabel = new javax.swing.JLabel();
+        paisText = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -89,6 +89,9 @@ public class NuevaRutaDialog extends java.awt.Dialog {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 precioTextKeyTyped(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                precioTextKeyReleased(evt);
+            }
         });
 
         VerificarRuta.setText("Verificar");
@@ -103,18 +106,27 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
-        columnBinding.setColumnName("Nombre Ciudad");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pais}"));
+        columnBinding.setColumnName("Pais");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
-        columnBinding.setColumnName("Tamaño Bodega");
-        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
+        columnBinding.setColumnName("Ciudad");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
         columnBinding.setColumnName("Tarifa");
         columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
+        columnBinding.setColumnName("Tamaño Bodega");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
         columnBinding.setColumnName("Encargado");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${puntoSeleccionado}"), tablaPuntosRuta, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -126,6 +138,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
             tablaPuntosRuta.getColumnModel().getColumn(2).setResizable(false);
             tablaPuntosRuta.getColumnModel().getColumn(3).setResizable(false);
             tablaPuntosRuta.getColumnModel().getColumn(4).setResizable(false);
+            tablaPuntosRuta.getColumnModel().getColumn(5).setResizable(false);
         }
 
         AgregarPuntoBoton.setText("Agregar");
@@ -140,18 +153,27 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
         columnBinding.setColumnName("Codigo");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
-        columnBinding.setColumnName("Nombre Ciudad");
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pais}"));
+        columnBinding.setColumnName("Pais");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
-        columnBinding.setColumnName("Tamaño Bodega");
-        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
+        columnBinding.setColumnName("Ciudad");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
         columnBinding.setColumnName("Tarifa");
         columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
+        columnBinding.setColumnName("Tamaño Bodega");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
         columnBinding.setColumnName("Encargado");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
@@ -161,12 +183,13 @@ public class NuevaRutaDialog extends java.awt.Dialog {
             jTable2.getColumnModel().getColumn(2).setResizable(false);
             jTable2.getColumnModel().getColumn(3).setResizable(false);
             jTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTable2.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AceparBoton.setText("Aceptar");
+        AceparBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AceparBotonActionPerformed(evt);
             }
         });
 
@@ -177,78 +200,99 @@ public class NuevaRutaDialog extends java.awt.Dialog {
             }
         });
 
+        paisLabel.setText("Pais");
+
+        paisText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                paisTextKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(249, 249, 249)
-                .addComponent(AgregarPuntoBoton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(nombreCiudadL)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nombreCiudadT, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(rutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codigoL)
-                                    .addComponent(precioL))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(codigoDT)
-                                    .addComponent(precioText, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(251, 251, 251)
-                                .addComponent(VerificarRuta)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelarRuta)
-                .addGap(217, 217, 217))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(AceparBoton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelarRuta)
+                        .addGap(217, 217, 217))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(rutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(165, 165, 165))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(VerificarRuta)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigoL)
+                            .addComponent(nombreCiudadL))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(codigoDT, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(102, 102, 102)
+                                .addComponent(paisLabel))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nombreCiudadT, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(precioL)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(precioText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paisText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(AgregarPuntoBoton)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rutaLabel)
-                    .addComponent(codigoL)
-                    .addComponent(codigoDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(rutaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(codigoL)
+                        .addComponent(codigoDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(paisText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paisLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreCiudadL)
                     .addComponent(nombreCiudadT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreCiudadL)
                     .addComponent(precioL)
                     .addComponent(precioText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(VerificarRuta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AgregarPuntoBoton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AgregarPuntoBoton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarRuta)
-                    .addComponent(jButton1))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(AceparBoton)
+                    .addComponent(cancelarRuta))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -277,15 +321,18 @@ public class NuevaRutaDialog extends java.awt.Dialog {
 
     private void VerificarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarRutaActionPerformed
 
-        if(!codigoDT.getText().equals("") && !nombreCiudadT.getText().equals("") && !precioText.getText().equals("")){
+        if(!codigoDT.getText().equals("") && !paisText.getText().equals("") && !nombreCiudadT.getText().equals("") && !precioText.getText().equals("")){
             boolean codigoOcupado = false;
             if(!sistema.VerificarOcupado("rutas", "cod_D", codigoDT.getText(), codigoOcupado)){
 
                 codigoDT.setEnabled(false);
+                paisText.setEnabled(false);
                 nombreCiudadT.setEnabled(false);
                 precioText.setEnabled(false);
                 VerificarRuta.setEnabled(false);
-                MostrarTabla("puntosDeControl");
+                sistema.MostrarTabla("puntosDeControl");
+                puntosObservable.addAll(sistema.getPuntosDeControl());
+                AgregarPuntoBoton.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(this, "Ya existe una ruta hacia la ciudad con el codigo que ingreso", "Campo Vacío", JOptionPane.ERROR_MESSAGE);
                 codigoDT.setText(null);
@@ -293,7 +340,6 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         }else{
             JOptionPane.showMessageDialog(this, "Todos los campos deben de llenarse", "Campo Vacío", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_VerificarRutaActionPerformed
 
     private void AgregarPuntoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarPuntoBotonActionPerformed
@@ -304,18 +350,22 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         }else{
             JOptionPane.showMessageDialog(this, "Selecciones algun punto de control", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        if(contadorPuntos == 1){
+            AceparBoton.setEnabled(true);
+        }
         if(contadorPuntos == 5){
             JOptionPane.showMessageDialog(this, "Se han agregado los 5 puntos de control necesarios", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             AgregarPuntoBoton.setEnabled(false);
         }
     }//GEN-LAST:event_AgregarPuntoBotonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void AceparBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceparBotonActionPerformed
         String query = "INSERT INTO rutas VALUES("
-                + contadorRutas+", "
+                + sistema.getContadorRutas()+", "
                 + "\""+codigoDT.getText()+"\", "
+                + "\""+paisText.getText()+"\", "
                 + "\""+nombreCiudadT.getText()+"\", "
-                + Double.parseDouble(precioText.getText())+", "
+                + precio+", "
                 + contadorPuntos+", ";
         
         for (int i=0; i<contadorPuntos; i++) {
@@ -340,8 +390,8 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         this.setVisible(false);
         sistema.inicio.admin.getRutaObservable().clear();
         sistema.MostrarTabla("rutas");
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        sistema.inicio.admin.getRutaObservable().addAll(sistema.getRutas());
+    }//GEN-LAST:event_AceparBotonActionPerformed
 
     private void cancelarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRutaActionPerformed
         this.setVisible(false);
@@ -354,7 +404,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
     }//GEN-LAST:event_codigoDTKeyTyped
 
     private void nombreCiudadTKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCiudadTKeyTyped
-        if(nombreCiudadT.getText().length() == 40){
+        if(nombreCiudadT.getText().length() == 20){
             evt.consume();
         }
     }//GEN-LAST:event_nombreCiudadTKeyTyped
@@ -365,43 +415,40 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         }
     }//GEN-LAST:event_precioTextKeyTyped
 
-    /**
-     * Metodo que se encarga de mostrar los datos de la tabla que se indique en el string nombreTabla
-     * @param nombreTabla 
-     */
-    public void MostrarTabla(String nombreTabla){
-        sistema.conectar.conectar();
-        try{
-            Statement declaracion = sistema.conectar.getConnection().createStatement();
-            ResultSet r = declaracion.executeQuery("SELECT * FROM "+nombreTabla);
-            while(r.next()){
-                if(nombreTabla.equals("rutas")){
-                    contadorRutas++;
-                }else{
-                    PuntosDeControl puntos = new PuntosDeControl(r.getString("codigo"), r.getString("nombreCiudad"), r.getDouble("tarifa"), r.getInt("tamañoBodega"), r.getString("encargado"));
-                    puntosObservable.add(puntos);
-                }
-            }
-        }catch(SQLException ex){
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    private void paisTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paisTextKeyTyped
+        if(paisText.getText().length() == 20){
+            evt.consume();
         }
-        sistema.conectar.desconectar();
-    }
-    
-    
+    }//GEN-LAST:event_paisTextKeyTyped
+
+    private void precioTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precioTextKeyReleased
+        if(!precioText.getText().equals("")){
+            try{
+                precio = Double.parseDouble(precioText.getText());
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "El formato ingresado no es valido", "Error", HEIGHT);
+                precioText.setText(null);
+            }
+        }else{
+            precio = 0;
+        }
+    }//GEN-LAST:event_precioTextKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AceparBoton;
     private javax.swing.JButton AgregarPuntoBoton;
     private javax.swing.JButton VerificarRuta;
     private javax.swing.JButton cancelarRuta;
     private javax.swing.JTextField codigoDT;
     private javax.swing.JLabel codigoL;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel nombreCiudadL;
     private javax.swing.JTextField nombreCiudadT;
+    private javax.swing.JLabel paisLabel;
+    private javax.swing.JTextField paisText;
     private javax.swing.JLabel precioL;
     private javax.swing.JTextField precioText;
     private javax.swing.JLabel rutaLabel;

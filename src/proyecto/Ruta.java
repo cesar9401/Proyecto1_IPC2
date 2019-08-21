@@ -9,7 +9,8 @@ public class Ruta {
     
     private int idRutas;
     private String cod_D;
-    private String name_D;
+    private String pais;
+    private String ciudad;
     private double precio;
     private int puntosC;
     private String pc1;
@@ -18,10 +19,11 @@ public class Ruta {
     private String pc4;
     private String pc5;
 
-    public Ruta(int idRutas, String cod_D, String name_D, double precio) {
+    public Ruta(int idRutas, String cod_D, String pais ,String ciudad, double precio) {
         this.idRutas = idRutas;
         this.cod_D = cod_D;
-        this.name_D = name_D;
+        this.pais = pais;
+        this.ciudad = ciudad;
         this.precio = precio;
     }
 
@@ -41,12 +43,20 @@ public class Ruta {
         this.cod_D = cod_D;
     }
 
-    public String getName_D() {
-        return name_D;
+    public String getPais() {
+        return pais;
     }
 
-    public void setName_D(String name_D) {
-        this.name_D = name_D;
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public double getPrecio() {

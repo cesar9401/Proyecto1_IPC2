@@ -7,14 +7,15 @@ package proyecto;
  */
 public class Cliente {
     
-    private String id_Cliente;
+    private int id_Cliente;
     private int nit;
     private String nombre;
     private int telefono;
     private String email;
     private String direccion;
-    
-    public Cliente(int nit, String nombre, int telefono, String email, String direccion){
+
+    public Cliente(int id_Cliente, int nit, String nombre, int telefono, String email, String direccion) {
+        this.id_Cliente = id_Cliente;
         this.nit = nit;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -22,11 +23,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getId_Cliente() {
+    public int getId_Cliente() {
         return id_Cliente;
     }
 
-    public void setId_Cliente(String id_Cliente) {
+    public void setId_Cliente(int id_Cliente) {
         this.id_Cliente = id_Cliente;
     }
 
@@ -74,5 +75,4 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "id_Cliente=" + id_Cliente + ", nit=" + nit + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + '}';
     }
-
 }

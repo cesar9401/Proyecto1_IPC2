@@ -21,6 +21,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
     private Usuario usuarioSeleccionado;
     private ObservableList<Usuario> usuariosObservableOp;
     private List<Usuario> listadoUsuarioOp = new ArrayList<>();
+    private double tarifa = 0;
     
     public NuevoPuntoDialog(java.awt.Frame parent, Sistema sistema) {
         super(parent, true);
@@ -37,6 +38,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
         nuevoPuntoPanel = new javax.swing.JPanel();
         codigoPuntoL = new javax.swing.JLabel();
         codigoText = new javax.swing.JTextField();
+        paisLabel = new javax.swing.JLabel();
         ciudadL = new javax.swing.JLabel();
         ciudadText = new javax.swing.JTextField();
         tarifaL = new javax.swing.JLabel();
@@ -47,8 +49,8 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
         cancelarPunto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        paisText = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(480, 310));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -66,6 +68,8 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
             }
         });
 
+        paisLabel.setText("Pais");
+
         ciudadL.setText("Ciudad: ");
 
         ciudadText.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -79,6 +83,9 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
         tarifaText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tarifaTextKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tarifaTextKeyReleased(evt);
             }
         });
 
@@ -120,6 +127,12 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
 
         jScrollPane1.setViewportView(jTable1);
 
+        paisText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                paisTextKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout nuevoPuntoPanelLayout = new javax.swing.GroupLayout(nuevoPuntoPanel);
         nuevoPuntoPanel.setLayout(nuevoPuntoPanelLayout);
         nuevoPuntoPanelLayout.setHorizontalGroup(
@@ -132,23 +145,28 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, nuevoPuntoPanelLayout.createSequentialGroup()
                             .addGap(25, 25, 25)
-                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tarifaL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(codigoPuntoL, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tarifaText, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(codigoText))
-                            .addGap(30, 30, 30)
-                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
+                                        .addComponent(tamañoL)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tamañoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
+                                        .addComponent(codigoPuntoL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
                                     .addComponent(ciudadL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ciudadText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
-                                    .addComponent(tamañoL)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tamañoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(ciudadText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(30, 30, 30)
+                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tarifaL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(paisLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tarifaText, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(paisText))))
                     .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(confirmarPunto)
@@ -159,21 +177,30 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
         nuevoPuntoPanelLayout.setVerticalGroup(
             nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ciudadL)
-                    .addComponent(ciudadText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoPuntoL))
+                .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nuevoPuntoPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigoPuntoL)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nuevoPuntoPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paisLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(paisText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tarifaL)
                     .addComponent(tarifaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ciudadL)
+                    .addComponent(ciudadText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tamañoL)
                     .addComponent(tamañoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(nuevoPuntoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmarPunto)
                     .addComponent(cancelarPunto))
@@ -211,7 +238,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
     }//GEN-LAST:event_codigoTextKeyTyped
 
     private void ciudadTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciudadTextKeyTyped
-        if(ciudadText.getText().length() == 40){
+        if(ciudadText.getText().length() == 20){
             evt.consume();
         }
     }//GEN-LAST:event_ciudadTextKeyTyped
@@ -225,7 +252,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
     private void confirmarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarPuntoActionPerformed
         boolean codigoOcupado = false;
 
-        if(!codigoText.getText().equals("") && !ciudadText.getText().equals("")){
+        if(!codigoText.getText().equals("") && !ciudadText.getText().equals("") && !paisText.getText().equals("")){
             if(sistema.VerificarOcupado("puntosDeControl", "codigo", codigoText.getText(), codigoOcupado)){
                 JOptionPane.showMessageDialog(this, "El codigo del punto de Control ya existe, pruebe con otro", "Error", JOptionPane.ERROR_MESSAGE);
                 codigoOcupado = true;
@@ -233,21 +260,20 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
             }else{
                 if(usuarioSeleccionado != null){
                     
-                    double tarifa = 0;
                     if(tarifaText.getText().equals("")){
                         sistema.MostrarTabla("precios");
+                        sistema.inicio.admin.getPreciosObservable().addAll(sistema.getPrecios());
                         for (int i=0; i<sistema.inicio.admin.getPreciosObservable().size(); i++) {
                             if(sistema.inicio.admin.getPreciosObservable().get(i).getTipoPago().equals("TarifaOperacion")){
                                 tarifa = sistema.inicio.admin.getPreciosObservable().get(i).getPrecio();
                             }
                         }
-                    }else{
-                        tarifa = Double.parseDouble(tarifaText.getText());
                     }
                     sistema.inicio.admin.getPreciosObservable().clear();
-                    
+
                     String query = "INSERT INTO puntosDeControl VALUES("
                         + "\""+codigoText.getText()+"\", "
+                        + "\""+paisText.getText()+"\", "
                         + "\""+ciudadText.getText()+"\", "
                         + tarifa +", "
                         + (tamañoCombo.getSelectedIndex() + 4)+", "
@@ -266,10 +292,10 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                     query2 = query2 + "("
                         + "idRegistro int auto_increment, "
                         + "idEnvio int, "
-                        + "idCliente bigint, "
-                        + "nombreCliente varchar(50), "
+                        + "idCliente int, "
                         + "idRuta int, "
-                        + "name_D varchar(40), "
+                        + "pais varchar(20), "
+                        + "ciudad varchar(20), "
                         + "estado boolean default false, "
                         + "fechaIngreso datetime, "
                         + "fechaSalida datetime, "
@@ -284,7 +310,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                     this.setVisible(false);
                     sistema.inicio.admin.getPuntosObservable().clear();
                     sistema.MostrarTabla("puntosDeControl");
-                    
+                    sistema.inicio.admin.getPuntosObservable().addAll(sistema.getPuntosDeControl());
                 }else{
                     JOptionPane.showMessageDialog(this, "Seleccione al operario que se hara cargo del punto de Control " + codigoText.getText(), "Seleccione un Usuario", JOptionPane.ERROR_MESSAGE);
                 }
@@ -297,18 +323,36 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
 
     public void llenarListado(){
         sistema.MostrarTabla("usuarios");
-        for (int i=0; i<sistema.inicio.admin.getUsuariosObservable().size(); i++) {
-            if(sistema.inicio.admin.getUsuariosObservable().get(i).getTipoUsuario().equals("Operador")){
-                usuariosObservableOp.add(sistema.inicio.admin.getUsuariosObservable().get(i));
+        for (int i=0; i<sistema.getUsuarios().size(); i++) {
+            if(sistema.getUsuarios().get(i).getTipoUsuario().equals("Operador")){
+                usuariosObservableOp.add(sistema.getUsuarios().get(i));
             }
         }
-        sistema.inicio.admin.getUsuariosObservable().clear();
+        sistema.getUsuarios().clear();
     }
     
     
     private void cancelarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPuntoActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_cancelarPuntoActionPerformed
+
+    private void paisTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paisTextKeyTyped
+        if(paisText.getText().length() == 20){
+            evt.consume();
+        }
+    }//GEN-LAST:event_paisTextKeyTyped
+
+    private void tarifaTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tarifaTextKeyReleased
+        if(!tarifaText.getText().equals("")){
+            try{
+                tarifa = Double.parseDouble(tarifaText.getText());
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "El formato ingresado no es correco", "Error", HEIGHT);
+            }
+        }else{
+            tarifa = 0;
+        }
+    }//GEN-LAST:event_tarifaTextKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarPunto;
@@ -320,6 +364,8 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel nuevoPuntoPanel;
+    private javax.swing.JLabel paisLabel;
+    private javax.swing.JTextField paisText;
     private javax.swing.JComboBox<String> tamañoCombo;
     private javax.swing.JLabel tamañoL;
     private javax.swing.JLabel tarifaL;

@@ -8,13 +8,15 @@ package proyecto;
 public class PuntosDeControl {
     
     private String codigo;
+    private String pais;
     private String nombreCiudad;
     private double tarifa;
     private int tamañoBodega;
     private String encargado;
 
-    public PuntosDeControl(String codigo, String nombreCiudad, double tarifa, int tamañoBodega, String encargado) {
+    public PuntosDeControl(String codigo, String pais, String nombreCiudad, double tarifa, int tamañoBodega, String encargado) {
         this.codigo = codigo;
+        this.pais = pais;
         this.nombreCiudad = nombreCiudad;
         this.tarifa = tarifa;
         this.tamañoBodega = tamañoBodega;
@@ -27,6 +29,14 @@ public class PuntosDeControl {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getNombreCiudad() {
