@@ -29,7 +29,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         puntosRutaObservable = ObservableCollections.observableList(puntosRuta);
         initComponents();
         sistema.setContadorRutas(0);
-        sistema.MostrarTabla("rutas");
+        sistema.MostrarTabla("rutas", "");
         sistema.setContadorRutas(sistema.getContadorRutas() + 1);
         rutaLabel.setText("Ruta # "+(sistema.getContadorRutas()));
         AgregarPuntoBoton.setEnabled(false);
@@ -330,7 +330,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
                 nombreCiudadT.setEnabled(false);
                 precioText.setEnabled(false);
                 VerificarRuta.setEnabled(false);
-                sistema.MostrarTabla("puntosDeControl");
+                sistema.MostrarTabla("puntosDeControl", "");
                 puntosObservable.addAll(sistema.getPuntosDeControl());
                 AgregarPuntoBoton.setEnabled(true);
             }else{
@@ -389,7 +389,7 @@ public class NuevaRutaDialog extends java.awt.Dialog {
         JOptionPane.showMessageDialog(this, "Ruta ingresada con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
         this.setVisible(false);
         sistema.inicio.admin.getRutaObservable().clear();
-        sistema.MostrarTabla("rutas");
+        sistema.MostrarTabla("rutas", "");
         sistema.inicio.admin.getRutaObservable().addAll(sistema.getRutas());
     }//GEN-LAST:event_AceparBotonActionPerformed
 

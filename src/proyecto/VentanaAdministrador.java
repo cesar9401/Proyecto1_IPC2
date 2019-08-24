@@ -458,7 +458,7 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     //Metodo para mostrar las rutas en su tabla correspondiente
     private void mostrarRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarRutasActionPerformed
         rutaObservable.clear();
-        sistema.MostrarTabla("rutas");
+        sistema.MostrarTabla("rutas", "");
         rutaObservable.addAll(sistema.getRutas());
     }//GEN-LAST:event_mostrarRutasActionPerformed
 
@@ -485,7 +485,7 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     //Metodo para mostrar la tabla de usuarios
     private void mostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarUsuariosActionPerformed
         usuariosObservable.clear();
-        sistema.MostrarTabla("usuarios");
+        sistema.MostrarTabla("usuarios", "");
         usuariosObservable.addAll(sistema.getUsuarios());
     }//GEN-LAST:event_mostrarUsuariosActionPerformed
 
@@ -508,7 +508,7 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     //Metodo para mostrar la tabla de puntosDeControl
     private void mostrarPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarPuntosActionPerformed
         puntosObservable.clear();
-        sistema.MostrarTabla("puntosDeControl");
+        sistema.MostrarTabla("puntosDeControl", "");
         puntosObservable.addAll(sistema.getPuntosDeControl());
     }//GEN-LAST:event_mostrarPuntosActionPerformed
 

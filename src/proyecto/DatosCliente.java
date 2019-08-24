@@ -25,7 +25,7 @@ public class DatosCliente extends java.awt.Dialog {
         this.sistema = sistema;
         this.envio = envio;
         initComponents();
-        sistema.MostrarTabla("clientes");
+        sistema.MostrarTabla("clientes", "");
     }
 
 
@@ -294,7 +294,7 @@ public class DatosCliente extends java.awt.Dialog {
                     envio.setIdCliete(cliente.getId_Cliente());
                     System.out.println(envio.toString());
                     
-                    String query = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String query = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement envios = sistema.conectar.getConnection().prepareStatement(query);
                     envios.setInt(1, envio.getIdEnvios());
                     envios.setInt(2, envio.getIdCliete());
@@ -306,13 +306,11 @@ public class DatosCliente extends java.awt.Dialog {
                     envios.setString(8, envio.getCod_D());
                     envios.setString(9, envio.getPais());
                     envios.setString(10, envio.getCiudad());
-                    envios.setBoolean(11, envio.isBodega());
-                    envios.setBoolean(12, envio.isBodegaD());
-                    envios.setBoolean(13, envio.isEntregado());
-                    envios.setDouble(14, envio.getMontoPriorizar());
-                    envios.setDouble(15, envio.getMontoPeso());
-                    envios.setDouble(16, envio.getMontoDestino());
-                    envios.setDouble(17, envio.getMontoTotal());   
+                    envios.setString(11, envio.getUbicacion());
+                    envios.setDouble(12, envio.getMontoPriorizar());
+                    envios.setDouble(13, envio.getMontoPeso());
+                    envios.setDouble(14, envio.getMontoDestino());
+                    envios.setDouble(15, envio.getMontoTotal());   
                     envios.executeUpdate();
                     
                     sistema.conectar.getConnection().commit();
@@ -351,7 +349,7 @@ public class DatosCliente extends java.awt.Dialog {
                     
                     envio.setIdCliete(cliente.getId_Cliente());
                     
-                    String queryEnvio = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String queryEnvio = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement envios = sistema.conectar.getConnection().prepareStatement(queryEnvio);
                     envios.setInt(1, envio.getIdEnvios());
                     envios.setInt(2, envio.getIdCliete());
@@ -363,13 +361,11 @@ public class DatosCliente extends java.awt.Dialog {
                     envios.setString(8, envio.getCod_D());
                     envios.setString(9, envio.getPais());
                     envios.setString(10, envio.getCiudad());
-                    envios.setBoolean(11, envio.isBodega());
-                    envios.setBoolean(12, envio.isBodegaD());
-                    envios.setBoolean(13, envio.isEntregado());
-                    envios.setDouble(14, envio.getMontoPriorizar());
-                    envios.setDouble(15, envio.getMontoPeso());
-                    envios.setDouble(16, envio.getMontoDestino());
-                    envios.setDouble(17, envio.getMontoTotal());   
+                    envios.setString(11, envio.getUbicacion());
+                    envios.setDouble(12, envio.getMontoPriorizar());
+                    envios.setDouble(13, envio.getMontoPeso());
+                    envios.setDouble(14, envio.getMontoDestino());
+                    envios.setDouble(15, envio.getMontoTotal());   
                     envios.executeUpdate();
                     
                     sistema.conectar.getConnection().commit();
@@ -387,6 +383,19 @@ public class DatosCliente extends java.awt.Dialog {
                 }
                 sistema.conectar.desconectar();
             }
+            
+            sistema.setContadorEnvios(0);
+            sistema.MostrarTabla("envios", "");
+            sistema.setContadorEnvios(sistema.getContadorEnvios() + 1);
+            sistema.inicio.recepcionista.idEnvioLabel.setText("Id Envio: " + sistema.getContadorEnvios());
+            sistema.inicio.recepcionista.pesoText.setText(null);
+            sistema.inicio.recepcionista.priorizarRadioBoton.setSelected(false);
+            sistema.inicio.recepcionista.categoriaCombo.setSelectedIndex(0);
+            sistema.inicio.recepcionista.getEnviosObservable().clear();
+            sistema.inicio.recepcionista.tablaRutas.clearSelection();
+            sistema.inicio.recepcionista.aceptarBoton.setEnabled(false);
+            sistema.inicio.recepcionista.peso = 0;
+            
             
             this.setVisible(false);
             

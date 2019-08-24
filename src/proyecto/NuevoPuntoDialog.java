@@ -261,7 +261,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                 if(usuarioSeleccionado != null){
                     
                     if(tarifaText.getText().equals("")){
-                        sistema.MostrarTabla("precios");
+                        sistema.MostrarTabla("precios", "");
                         sistema.inicio.admin.getPreciosObservable().addAll(sistema.getPrecios());
                         for (int i=0; i<sistema.inicio.admin.getPreciosObservable().size(); i++) {
                             if(sistema.inicio.admin.getPreciosObservable().get(i).getTipoPago().equals("TarifaOperacion")){
@@ -309,7 +309,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                     JOptionPane.showMessageDialog(this, "Punto de control ingresado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
                     this.setVisible(false);
                     sistema.inicio.admin.getPuntosObservable().clear();
-                    sistema.MostrarTabla("puntosDeControl");
+                    sistema.MostrarTabla("puntosDeControl", "");
                     sistema.inicio.admin.getPuntosObservable().addAll(sistema.getPuntosDeControl());
                 }else{
                     JOptionPane.showMessageDialog(this, "Seleccione al operario que se hara cargo del punto de Control " + codigoText.getText(), "Seleccione un Usuario", JOptionPane.ERROR_MESSAGE);
@@ -322,7 +322,7 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
     }//GEN-LAST:event_confirmarPuntoActionPerformed
 
     public void llenarListado(){
-        sistema.MostrarTabla("usuarios");
+        sistema.MostrarTabla("usuarios", "");
         for (int i=0; i<sistema.getUsuarios().size(); i++) {
             if(sistema.getUsuarios().get(i).getTipoUsuario().equals("Operador")){
                 usuariosObservableOp.add(sistema.getUsuarios().get(i));

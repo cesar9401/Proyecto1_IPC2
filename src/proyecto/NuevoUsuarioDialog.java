@@ -259,7 +259,7 @@ public class NuevoUsuarioDialog extends java.awt.Dialog {
                 JOptionPane.showMessageDialog(this, "Usuario creado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(false);
                 sistema.inicio.admin.getUsuariosObservable().clear();
-                sistema.MostrarTabla("usuarios");
+                sistema.MostrarTabla("usuarios", "");
             }
         }else{
             JOptionPane.showMessageDialog(this, "Ingrese los datos que se le piden", "Error", JOptionPane.ERROR_MESSAGE );

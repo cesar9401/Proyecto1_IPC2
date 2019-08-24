@@ -19,9 +19,7 @@ public class Envios {
     private String cod_D;
     private String pais;
     private String ciudad;
-    private boolean bodega;
-    private boolean bodegaD;
-    private boolean entregado;
+    private String ubicacion;
     private Double montoPriorizar;
     private Double montoPeso;
     private Double montoDestino;
@@ -115,28 +113,12 @@ public class Envios {
         this.ciudad = ciudad;
     }
 
-    public boolean isBodega() {
-        return bodega;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public void setBodega(boolean bodega) {
-        this.bodega = bodega;
-    }
-
-    public boolean isBodegaD() {
-        return bodegaD;
-    }
-
-    public void setBodegaD(boolean bodegaD) {
-        this.bodegaD = bodegaD;
-    }
-
-    public boolean isEntregado() {
-        return entregado;
-    }
-
-    public void setEntregado(boolean entregado) {
-        this.entregado = entregado;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public Double getMontoPriorizar() {
@@ -170,10 +152,4 @@ public class Envios {
     public void setMontoTotal(Double montoTotal) {
         this.montoTotal = montoTotal;
     }
-
-    @Override
-    public String toString() {
-        return "Envios{" + "idEnvios=" + idEnvios + ", idCliete=" + idCliete + ", peso=" + peso + ", categoria=" + categoria + ", ingreso=" + ingreso + ", priorizar=" + priorizar + ", idRuta=" + idRuta + ", cod_D=" + cod_D + ", pais=" + pais + ", ciudad=" + ciudad + ", bodega=" + bodega + ", bodegaD=" + bodegaD + ", entregado=" + entregado + ", montoPriorizar=" + montoPriorizar + ", montoPeso=" + montoPeso + ", montoDestino=" + montoDestino + ", montoTotal=" + montoTotal + '}';
-    }
-
 }

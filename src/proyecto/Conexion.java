@@ -19,7 +19,7 @@ public class Conexion {
     public Connection conectar(){
         try{
             connection = (Connection) DriverManager.getConnection(url, user, password);
-            System.out.println("Conectado " + connection.getCatalog());
+            //System.out.println("Conectado " + connection.getCatalog());
             
         }catch(SQLException ex){
             System.out.println("Fallo la conexion");
@@ -30,7 +30,7 @@ public class Conexion {
     public void desconectar(){
         try {
             connection.close();
-            System.out.println("Desconectado " + connection.getCatalog());
+            //System.out.println("Desconectado " + connection.getCatalog());
         } catch (SQLException ex) {
             System.out.println("No se pudo cerrar conexion");
         }
