@@ -30,7 +30,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     private void initComponents() {
 
         inicioLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        usuarioLabel = new javax.swing.JLabel();
         usuarioText = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
@@ -41,7 +41,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
 
         inicioLabel.setText("Iniciar Sesión");
 
-        jLabel1.setText("Usuario");
+        usuarioLabel.setText("Usuario");
 
         usuarioText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -72,7 +72,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
                 .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iniciarBoton)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inicioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usuarioText, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
@@ -85,7 +85,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
                 .addGap(71, 71, 71)
                 .addComponent(inicioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(usuarioLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usuarioText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -174,9 +174,9 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton iniciarBoton;
     private javax.swing.JLabel inicioLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
+    private javax.swing.JLabel usuarioLabel;
     private javax.swing.JTextField usuarioText;
     // End of variables declaration//GEN-END:variables
 }

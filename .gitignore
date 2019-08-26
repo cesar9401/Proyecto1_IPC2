@@ -1,2 +1,8 @@
 /build/
 /dist/
+/MovePaquete/build/
+/MovePaquete/dist/
+/MovePaquete/nbproject/private/
+/MoverPaquete/build/
+/MoverPaquete/dist/
+/MoverPaquete/nbproject/private/

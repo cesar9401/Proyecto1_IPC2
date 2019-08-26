@@ -30,8 +30,7 @@ public class Sistema {
     private int contadorRutas = 0;
     
     public Sistema(){
-        //MostrarTabla("HN_DC", "");
-        //JOptionPane.showMessageDialog(inicio, "La hora es: " + punto.get(0).getHoraIngreso(), "hora", JOptionPane.INFORMATION_MESSAGE);
+        
     }
     
     /**
@@ -98,9 +97,8 @@ public class Sistema {
                         rutas.add(ruta);
                     }
                     
-                    if(r.getInt("idRutas")>contadorRutas){
-                    contadorRutas = r.getInt("idRutas");
-                    contadorRutas++;
+                    if(r.getInt("idRutas")>=contadorRutas){
+                    contadorRutas = r.getInt("idRutas") + 1;
                     }
                 }
                 else if(nombreTabla.equals("puntosDeControl")){
@@ -127,12 +125,14 @@ public class Sistema {
                     envio.setMontoPeso(r.getDouble("montoPeso"));
                     envio.setMontoDestino(r.getDouble("montoDestino"));
                     envio.setMontoTotal(r.getDouble("montoTotal"));
+                    envio.setCosto(r.getDouble("costo"));
                     envios.add(envio);
-                    contadorEnvios++;
+                    if(r.getInt("idEnvios") >= contadorEnvios){
+                        contadorEnvios = r.getInt("idEnvios") +1;
+                    }
                 }
                 
                 else{
-                    System.out.println("nombreTabla: " + nombreTabla);
                     PuntoControl puntoControl = new PuntoControl(r.getInt("idRegistro"), r.getInt("idEnvio"), r.getInt("idCliente"), r.getInt("idRuta"), r.getString("pais"), r.getString("ciudad"), r.getBoolean("estado"));
                     puntoControl.setFechaIngreso(r.getDate("fechaIngreso"));
                     puntoControl.setFechaSalida(r.getDate("fechaSalida"));
@@ -145,9 +145,8 @@ public class Sistema {
                     }catch(NullPointerException e){}
                     puntoControl.setHoraIngreso(time);
                     puntoControl.setHoraSalida(timeF);
+                    puntoControl.setFecha(r.getTimestamp("fechaIngreso"));
                     punto.add(puntoControl);
-                    System.out.println(puntoControl.toString());
-                    
                 }
             }
 

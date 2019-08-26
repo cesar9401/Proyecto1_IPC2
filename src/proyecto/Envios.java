@@ -2,6 +2,7 @@
 package proyecto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Envios {
     private Double montoPeso;
     private Double montoDestino;
     private Double montoTotal;
+    private Double costo;
 
     public Envios(int idEnvios, Double peso, String categoria, Date ingreso, boolean priorizar) {
         this.idEnvios = idEnvios;
@@ -151,5 +153,13 @@ public class Envios {
 
     public void setMontoTotal(Double montoTotal) {
         this.montoTotal = montoTotal;
+    }
+
+    public Double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Double costo) {
+        this.costo = costo;
     }
 }

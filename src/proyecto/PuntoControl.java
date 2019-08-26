@@ -3,6 +3,7 @@ package proyecto;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 /**
  *
@@ -22,6 +23,7 @@ public class PuntoControl {
     private Date fechaSalida;
     private String horaSalida;
     private Double costoTotal;
+    private java.sql.Timestamp fecha; 
             
     public PuntoControl(int idRegistro, int idEnvio, int idCliente, int idRuta, String pais, String ciudad, boolean estado) {
         this.idRegistro = idRegistro;
@@ -129,8 +131,16 @@ public class PuntoControl {
         this.costoTotal = costoTotal;
     }
 
+    public Timestamp getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
+    }
+
     @Override
     public String toString() {
-        return "PuntoControl{" + "idRegistro=" + idRegistro + ", idEnvio=" + idEnvio + ", idCliente=" + idCliente + ", idRuta=" + idRuta + ", pais=" + pais + ", ciudad=" + ciudad + ", estado=" + estado + ", fechaIngreso=" + fechaIngreso + ", horaIngreso=" + horaIngreso + ", fechaSalida=" + fechaSalida + ", horaSalida=" + horaSalida + ", costoTotal=" + costoTotal + '}';
+        return "PuntoControl{" + "idRegistro=" + idRegistro + ", idEnvio=" + idEnvio + ", idCliente=" + idCliente + ", idRuta=" + idRuta + ", pais=" + pais + ", ciudad=" + ciudad + ", estado=" + estado + ", fechaSalida=" + fechaSalida + ", horaSalida=" + horaSalida + ", costoTotal=" + costoTotal + ", fecha=" + fecha + '}';
     }
 }

@@ -33,16 +33,16 @@ public class DatosCliente extends java.awt.Dialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        clienteLabel = new javax.swing.JLabel();
         idClienteText = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        nitLabel = new javax.swing.JLabel();
         nitClienteText = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        nombreLabel = new javax.swing.JLabel();
         nombreClienteText = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        telefonoLabel = new javax.swing.JLabel();
         telefonoClienteText = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        direccionLabel = new javax.swing.JLabel();
         emailClienteText = new javax.swing.JTextField();
         direccionClienteText = new javax.swing.JTextField();
         aceptarBoton = new javax.swing.JButton();
@@ -57,8 +57,8 @@ public class DatosCliente extends java.awt.Dialog {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(470, 280));
 
-        jLabel1.setText("id Cliente");
-        jLabel1.setToolTipText("");
+        clienteLabel.setText("id Cliente");
+        clienteLabel.setToolTipText("");
 
         idClienteText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -72,7 +72,7 @@ public class DatosCliente extends java.awt.Dialog {
             }
         });
 
-        jLabel2.setText("Nit");
+        nitLabel.setText("Nit");
 
         nitClienteText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -83,7 +83,7 @@ public class DatosCliente extends java.awt.Dialog {
             }
         });
 
-        jLabel3.setText("Nombre");
+        nombreLabel.setText("Nombre");
 
         nombreClienteText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -91,7 +91,7 @@ public class DatosCliente extends java.awt.Dialog {
             }
         });
 
-        jLabel4.setText("Telefono");
+        telefonoLabel.setText("Telefono");
 
         telefonoClienteText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -102,9 +102,9 @@ public class DatosCliente extends java.awt.Dialog {
             }
         });
 
-        jLabel5.setText("Email");
+        emailLabel.setText("Email");
 
-        jLabel6.setText("Dirección");
+        direccionLabel.setText("Dirección");
 
         emailClienteText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -140,11 +140,11 @@ public class DatosCliente extends java.awt.Dialog {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addComponent(clienteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(idClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(nitClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
@@ -152,16 +152,16 @@ public class DatosCliente extends java.awt.Dialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(telefonoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nombreLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nombreClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(telefonoClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(emailClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(direccionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(direccionClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(79, 79, 79))))
@@ -177,25 +177,25 @@ public class DatosCliente extends java.awt.Dialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(clienteLabel)
                     .addComponent(idClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addComponent(nitLabel)
                     .addComponent(nitClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(telefonoLabel)
                     .addComponent(telefonoClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(nombreLabel)
                     .addComponent(nombreClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(emailLabel)
                     .addComponent(emailClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(direccionLabel)
                     .addComponent(direccionClienteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,9 +292,8 @@ public class DatosCliente extends java.awt.Dialog {
                     }
                     
                     envio.setIdCliete(cliente.getId_Cliente());
-                    System.out.println(envio.toString());
                     
-                    String query = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String query = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement envios = sistema.conectar.getConnection().prepareStatement(query);
                     envios.setInt(1, envio.getIdEnvios());
                     envios.setInt(2, envio.getIdCliete());
@@ -310,11 +309,11 @@ public class DatosCliente extends java.awt.Dialog {
                     envios.setDouble(12, envio.getMontoPriorizar());
                     envios.setDouble(13, envio.getMontoPeso());
                     envios.setDouble(14, envio.getMontoDestino());
-                    envios.setDouble(15, envio.getMontoTotal());   
+                    envios.setDouble(15, envio.getMontoTotal()); 
+                    envios.setDouble(16, 0);
                     envios.executeUpdate();
                     
                     sistema.conectar.getConnection().commit();
-                    System.out.println("Ejecutado");
                     sistema.conectar.getConnection().setAutoCommit(true);
                     JOptionPane.showMessageDialog(this, "Tu envio ha sido colocado en cola, idEnvio: " + envio.getIdEnvios(), "Envio Agregado", HEIGHT);
                 }catch(SQLException ex){
@@ -349,7 +348,7 @@ public class DatosCliente extends java.awt.Dialog {
                     
                     envio.setIdCliete(cliente.getId_Cliente());
                     
-                    String queryEnvio = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String queryEnvio = "INSERT INTO envios VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement envios = sistema.conectar.getConnection().prepareStatement(queryEnvio);
                     envios.setInt(1, envio.getIdEnvios());
                     envios.setInt(2, envio.getIdCliete());
@@ -365,7 +364,8 @@ public class DatosCliente extends java.awt.Dialog {
                     envios.setDouble(12, envio.getMontoPriorizar());
                     envios.setDouble(13, envio.getMontoPeso());
                     envios.setDouble(14, envio.getMontoDestino());
-                    envios.setDouble(15, envio.getMontoTotal());   
+                    envios.setDouble(15, envio.getMontoTotal());
+                    envios.setDouble(16, 0);
                     envios.executeUpdate();
                     
                     sistema.conectar.getConnection().commit();
@@ -386,7 +386,6 @@ public class DatosCliente extends java.awt.Dialog {
             
             sistema.setContadorEnvios(0);
             sistema.MostrarTabla("envios", "");
-            sistema.setContadorEnvios(sistema.getContadorEnvios() + 1);
             sistema.inicio.recepcionista.idEnvioLabel.setText("Id Envio: " + sistema.getContadorEnvios());
             sistema.inicio.recepcionista.pesoText.setText(null);
             sistema.inicio.recepcionista.priorizarRadioBoton.setSelected(false);
@@ -396,6 +395,9 @@ public class DatosCliente extends java.awt.Dialog {
             sistema.inicio.recepcionista.aceptarBoton.setEnabled(false);
             sistema.inicio.recepcionista.peso = 0;
             
+            
+            com.proyecto.Mover mover = new com.proyecto.Mover();
+            mover.mover();
             
             this.setVisible(false);
             
@@ -523,18 +525,18 @@ public class DatosCliente extends java.awt.Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarBoton;
     private javax.swing.JButton cancelarBoton;
+    private javax.swing.JLabel clienteLabel;
     private javax.swing.JTextField direccionClienteText;
+    private javax.swing.JLabel direccionLabel;
     private javax.swing.JTextField emailClienteText;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField idClienteText;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nitClienteText;
+    private javax.swing.JLabel nitLabel;
     private javax.swing.JTextField nombreClienteText;
+    private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField telefonoClienteText;
+    private javax.swing.JLabel telefonoLabel;
     // End of variables declaration//GEN-END:variables
 }

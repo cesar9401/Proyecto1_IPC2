@@ -5,8 +5,13 @@
  */
 package proyecto;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
@@ -270,41 +275,60 @@ public class NuevoPuntoDialog extends java.awt.Dialog {
                         }
                     }
                     sistema.inicio.admin.getPreciosObservable().clear();
-
-                    String query = "INSERT INTO puntosDeControl VALUES("
-                        + "\""+codigoText.getText()+"\", "
-                        + "\""+paisText.getText()+"\", "
-                        + "\""+ciudadText.getText()+"\", "
-                        + tarifa +", "
-                        + (tamañoCombo.getSelectedIndex() + 4)+", "
-                        + "\""+ usuarioSeleccionado.getUsuario()+"\")";
-                    sistema.IngresarEliminarEnTabla(query);
-                
-                    String query2 = "CREATE TABLE ";
-                    for (int i=0; i<codigoText.getText().length(); i++) {
-                        if(codigoText.getText().charAt(i) == '-'){
-                            query2 = query2 + "_";
-                        }else{
-                            query2 = query2 + codigoText.getText().charAt(i);
-                        }
-                    }
                     
-                    query2 = query2 + "("
-                        + "idRegistro int auto_increment, "
-                        + "idEnvio int, "
-                        + "idCliente int, "
-                        + "idRuta int, "
-                        + "pais varchar(20), "
-                        + "ciudad varchar(20), "
-                        + "estado boolean default false, "
-                        + "fechaIngreso datetime, "
-                        + "fechaSalida datetime, "
-                        + "costoTotal decimal(10,2), "
-                        + "PRIMARY KEY(idRegistro), "
-                        + "FOREIGN KEY(idEnvio) REFERENCES envios(idEnvios) "
-                        + "ON DELETE CASCADE ON UPDATE CASCADE)Engine=InnoDB";
-                    System.out.println(query2);
-                    sistema.IngresarEliminarEnTabla(query2);
+                    sistema.conectar.conectar();
+                    try{
+                        sistema.conectar.getConnection().setAutoCommit(false);
+                        String query = "INSERT INTO puntosDeControl VALUES(?, ?, ?, ?, ?, ?)";
+                        PreparedStatement punto = sistema.conectar.getConnection().prepareStatement(query);
+                        punto.setString(1, codigoText.getText());
+                        punto.setString(2, paisText.getText());
+                        punto.setString(3, ciudadText.getText());
+                        punto.setDouble(4, tarifa);
+                        punto.setInt(5, (tamañoCombo.getSelectedIndex() + 4));
+                        punto.setString(6, usuarioSeleccionado.getUsuario());
+                        punto.executeUpdate();
+                        
+                        String query2 = "CREATE TABLE ";
+                        for (int i=0; i<codigoText.getText().length(); i++) {
+                            if(codigoText.getText().charAt(i) == '-'){
+                                query2 = query2 + "_";
+                            }else{
+                                query2 = query2 + codigoText.getText().charAt(i);
+                            }
+                        }
+                    
+                        query2 = query2 + "("
+                            + "idRegistro int auto_increment, "
+                            + "idEnvio int, "
+                            + "idCliente int, "
+                            + "idRuta int, "
+                            + "pais varchar(20), "
+                            + "ciudad varchar(20), "
+                            + "estado boolean default false, "
+                            + "fechaIngreso datetime, "
+                            + "fechaSalida datetime, "
+                            + "costoTotal decimal(10,2), "
+                            + "PRIMARY KEY(idRegistro), "
+                            + "FOREIGN KEY(idEnvio) REFERENCES envios(idEnvios) "
+                            + "ON DELETE CASCADE ON UPDATE CASCADE)Engine=InnoDB";
+                        Statement declaracion = sistema.conectar.getConnection().createStatement();
+                        declaracion.executeUpdate(query2);
+                    
+                        sistema.conectar.getConnection().commit();
+                        sistema.conectar.getConnection().setAutoCommit(true);
+                    }catch(SQLException ex){
+                        try {
+                            sistema.conectar.getConnection().rollback();
+                            JOptionPane.showMessageDialog(this, "Verifique que no halla escrito un caracter especial en el codigo", "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (SQLException ex1) {
+                            Logger.getLogger(NuevoPuntoDialog.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                        
+                    }
+                    sistema.conectar.desconectar();
+
+
                     
                     JOptionPane.showMessageDialog(this, "Punto de control ingresado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
                     this.setVisible(false);

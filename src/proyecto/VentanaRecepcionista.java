@@ -23,6 +23,7 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
     private List<Ruta> listadoRuta = new ArrayList<>();
     private ObservableList<Envios> enviosObservable;
     private List<Envios> listadoEnvios = new ArrayList<>();
+    private Envios envioSeleccionado;
     private Envios envio;
     private ObservableList<ConsultaInner> consultaObservable;
     private List<ConsultaInner> listadoConsulta = new ArrayList<>();
@@ -43,33 +44,38 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         tabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        panel_inicio = new javax.swing.JPanel();
         panelNuevoEnvio = new javax.swing.JPanel();
         idEnvioLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        pesoLabel = new javax.swing.JLabel();
         pesoText = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        categoriaLabel = new javax.swing.JLabel();
         categoriaCombo = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
         priorizarRadioBoton = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        destinoLabel = new javax.swing.JLabel();
+        scroll1 = new javax.swing.JScrollPane();
         tablaRutas = new javax.swing.JTable();
         continuarBoton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        panelContinuar = new javax.swing.JPanel();
+        scroll2 = new javax.swing.JScrollPane();
         tablaEnvio = new javax.swing.JTable();
         aceptarBoton = new javax.swing.JButton();
         cancelarBoton = new javax.swing.JButton();
         fechaChooser = new com.toedter.calendar.JDateChooser();
-        jPanel2 = new javax.swing.JPanel();
+        panelBuscarPaquete = new javax.swing.JPanel();
         idEnvioText = new javax.swing.JTextField();
         buscarBoton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        idEnvioLabel2 = new javax.swing.JLabel();
+        scroll3 = new javax.swing.JScrollPane();
+        scroll4 = new javax.swing.JScrollPane();
+        talblaBusqueda = new javax.swing.JTable();
+        panelBodegas = new javax.swing.JPanel();
+        scrollpane3 = new javax.swing.JScrollPane();
+        scrollpane2 = new javax.swing.JScrollPane();
+        tablaBodegas = new javax.swing.JTable();
+        mostrarBodegas = new javax.swing.JButton();
+        RetirarPaquete = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         cuentaMenu = new javax.swing.JMenu();
         aboutItem = new javax.swing.JMenuItem();
@@ -86,22 +92,22 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+        javax.swing.GroupLayout panel_inicioLayout = new javax.swing.GroupLayout(panel_inicio);
+        panel_inicio.setLayout(panel_inicioLayout);
+        panel_inicioLayout.setHorizontalGroup(
+            panel_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 616, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+        panel_inicioLayout.setVerticalGroup(
+            panel_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 737, Short.MAX_VALUE)
         );
 
-        tabbedPane1.addTab("Inicio", jPanel1);
+        tabbedPane1.addTab("Inicio", panel_inicio);
 
         idEnvioLabel.setText("Id Envio:");
 
-        jLabel2.setText("Peso (Lb)");
+        pesoLabel.setText("Peso (Lb)");
 
         pesoText.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -112,16 +118,16 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Categoria");
+        categoriaLabel.setText("Categoria");
 
         categoriaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documentos", "Quimicos", "Automotriz", "Manufactura", "Comercio Min", "Tecnologia", "Salud" }));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel3.setText("Fecha Ingreso");
+        fechaLabel.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        fechaLabel.setText("Fecha Ingreso");
 
         priorizarRadioBoton.setText("Priorizar");
 
-        jLabel4.setText("Destino");
+        destinoLabel.setText("Destino");
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rutaObservable}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaRutas);
@@ -141,7 +147,7 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${rutaSeleccionada}"), tablaRutas, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
-        jScrollPane1.setViewportView(tablaRutas);
+        scroll1.setViewportView(tablaRutas);
         if (tablaRutas.getColumnModel().getColumnCount() > 0) {
             tablaRutas.getColumnModel().getColumn(0).setResizable(false);
             tablaRutas.getColumnModel().getColumn(1).setResizable(false);
@@ -184,7 +190,7 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane2.setViewportView(tablaEnvio);
+        scroll2.setViewportView(tablaEnvio);
         if (tablaEnvio.getColumnModel().getColumnCount() > 0) {
             tablaEnvio.getColumnModel().getColumn(0).setMinWidth(70);
             tablaEnvio.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -211,29 +217,29 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelContinuarLayout = new javax.swing.GroupLayout(panelContinuar);
+        panelContinuar.setLayout(panelContinuarLayout);
+        panelContinuarLayout.setHorizontalGroup(
+            panelContinuarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContinuarLayout.createSequentialGroup()
+                .addGroup(panelContinuarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelContinuarLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(scroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelContinuarLayout.createSequentialGroup()
                         .addGap(167, 167, 167)
                         .addComponent(aceptarBoton)
                         .addGap(61, 61, 61)
                         .addComponent(cancelarBoton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        panelContinuarLayout.setVerticalGroup(
+            panelContinuarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContinuarLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scroll2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelContinuarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarBoton)
                     .addComponent(cancelarBoton))
                 .addContainerGap())
@@ -256,31 +262,31 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
                         .addComponent(idEnvioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelNuevoEnvioLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(destinoLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNuevoEnvioLayout.createSequentialGroup()
                         .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                            .addComponent(scroll1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                             .addGroup(panelNuevoEnvioLayout.createSequentialGroup()
                                 .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNuevoEnvioLayout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pesoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                     .addGroup(panelNuevoEnvioLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
+                                        .addComponent(fechaLabel)
                                         .addGap(14, 14, 14)))
                                 .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelNuevoEnvioLayout.createSequentialGroup()
                                         .addComponent(pesoText, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(categoriaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(fechaChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(categoriaCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(priorizarRadioBoton, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(90, 90, 90))))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelNuevoEnvioLayout.setVerticalGroup(
             panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,23 +295,23 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
                 .addComponent(idEnvioLabel)
                 .addGap(17, 17, 17)
                 .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(pesoLabel)
                     .addComponent(pesoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(categoriaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(categoriaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelNuevoEnvioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(priorizarRadioBoton)
-                    .addComponent(jLabel3)
+                    .addComponent(fechaLabel)
                     .addComponent(fechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
-                .addComponent(jLabel4)
+                .addComponent(destinoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scroll1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(continuarBoton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(272, 272, 272))
         );
 
@@ -327,17 +333,17 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Id de Envio");
+        idEnvioLabel2.setText("Id de Envio");
 
-        jScrollPane6.setMinimumSize(new java.awt.Dimension(562, 250));
-        jScrollPane6.setPreferredSize(new java.awt.Dimension(562, 250));
+        scroll3.setMinimumSize(new java.awt.Dimension(562, 250));
+        scroll3.setPreferredSize(new java.awt.Dimension(562, 250));
 
-        jScrollPane5.setMinimumSize(new java.awt.Dimension(1000, 250));
-        jScrollPane5.setPreferredSize(new java.awt.Dimension(1000, 250));
-        jScrollPane5.setRequestFocusEnabled(false);
+        scroll4.setMinimumSize(new java.awt.Dimension(1000, 250));
+        scroll4.setPreferredSize(new java.awt.Dimension(1000, 250));
+        scroll4.setRequestFocusEnabled(false);
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${consultaObservable}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable2);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, talblaBusqueda);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idEnvio}"));
         columnBinding.setColumnName("idEnvio");
         columnBinding.setColumnClass(Integer.class);
@@ -373,79 +379,177 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane5.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(70);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(70);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(70);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(70);
-            jTable2.getColumnModel().getColumn(2).setMinWidth(70);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(70);
-            jTable2.getColumnModel().getColumn(3).setMinWidth(100);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(4).setMinWidth(100);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(5).setMinWidth(110);
-            jTable2.getColumnModel().getColumn(5).setPreferredWidth(110);
-            jTable2.getColumnModel().getColumn(6).setMinWidth(100);
-            jTable2.getColumnModel().getColumn(6).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(7).setMinWidth(100);
-            jTable2.getColumnModel().getColumn(7).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(8).setMinWidth(100);
-            jTable2.getColumnModel().getColumn(8).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(9).setMinWidth(80);
-            jTable2.getColumnModel().getColumn(9).setPreferredWidth(80);
-            jTable2.getColumnModel().getColumn(10).setMinWidth(70);
-            jTable2.getColumnModel().getColumn(10).setPreferredWidth(70);
+        scroll4.setViewportView(talblaBusqueda);
+        if (talblaBusqueda.getColumnModel().getColumnCount() > 0) {
+            talblaBusqueda.getColumnModel().getColumn(0).setMinWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(0).setPreferredWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(1).setMinWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(1).setPreferredWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(2).setMinWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(2).setPreferredWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(3).setMinWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(3).setPreferredWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(4).setMinWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(4).setPreferredWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(5).setMinWidth(110);
+            talblaBusqueda.getColumnModel().getColumn(5).setPreferredWidth(110);
+            talblaBusqueda.getColumnModel().getColumn(6).setMinWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(6).setPreferredWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(7).setMinWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(7).setPreferredWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(8).setMinWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(8).setPreferredWidth(100);
+            talblaBusqueda.getColumnModel().getColumn(9).setMinWidth(80);
+            talblaBusqueda.getColumnModel().getColumn(9).setPreferredWidth(80);
+            talblaBusqueda.getColumnModel().getColumn(10).setMinWidth(70);
+            talblaBusqueda.getColumnModel().getColumn(10).setPreferredWidth(70);
         }
 
-        jScrollPane6.setViewportView(jScrollPane5);
+        scroll3.setViewportView(scroll4);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBuscarPaqueteLayout = new javax.swing.GroupLayout(panelBuscarPaquete);
+        panelBuscarPaquete.setLayout(panelBuscarPaqueteLayout);
+        panelBuscarPaqueteLayout.setHorizontalGroup(
+            panelBuscarPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarPaqueteLayout.createSequentialGroup()
+                .addGroup(panelBuscarPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBuscarPaqueteLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
+                        .addComponent(idEnvioLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(idEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscarBoton))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(panelBuscarPaqueteLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scroll3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelBuscarPaqueteLayout.setVerticalGroup(
+            panelBuscarPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarPaqueteLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBuscarPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscarBoton)
-                    .addComponent(jLabel1))
+                    .addComponent(idEnvioLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addComponent(scroll3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(433, Short.MAX_VALUE))
         );
 
-        tabbedPane1.addTab("BuscarPaquete", jPanel2);
+        tabbedPane1.addTab("BuscarPaquete", panelBuscarPaquete);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+        scrollpane3.setMinimumSize(new java.awt.Dimension(600, 310));
+        scrollpane3.setPreferredSize(new java.awt.Dimension(600, 310));
+
+        scrollpane2.setMinimumSize(new java.awt.Dimension(800, 600));
+        scrollpane2.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${enviosObservable}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tablaBodegas);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idEnvios}"));
+        columnBinding.setColumnName("idEnvio");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idCliete}"));
+        columnBinding.setColumnName("Cliente");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idRuta}"));
+        columnBinding.setColumnName("idRuta");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${categoria}"));
+        columnBinding.setColumnName("Categoria");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ubicacion}"));
+        columnBinding.setColumnName("Ubicacion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cod_D}"));
+        columnBinding.setColumnName("Codigo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pais}"));
+        columnBinding.setColumnName("Pais");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ciudad}"));
+        columnBinding.setColumnName("Ciudad");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${costo}"));
+        columnBinding.setColumnName("Costo");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${montoTotal}"));
+        columnBinding.setColumnName("Monto Total");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${envioSeleccionado}"), tablaBodegas, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        scrollpane2.setViewportView(tablaBodegas);
+        if (tablaBodegas.getColumnModel().getColumnCount() > 0) {
+            tablaBodegas.getColumnModel().getColumn(0).setMinWidth(60);
+            tablaBodegas.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tablaBodegas.getColumnModel().getColumn(1).setMinWidth(60);
+            tablaBodegas.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tablaBodegas.getColumnModel().getColumn(2).setMinWidth(60);
+            tablaBodegas.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tablaBodegas.getColumnModel().getColumn(6).setMinWidth(100);
+            tablaBodegas.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tablaBodegas.getColumnModel().getColumn(7).setMinWidth(120);
+            tablaBodegas.getColumnModel().getColumn(7).setPreferredWidth(120);
+        }
+
+        scrollpane3.setViewportView(scrollpane2);
+
+        mostrarBodegas.setText("MostrarBodegas");
+        mostrarBodegas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarBodegasActionPerformed(evt);
+            }
+        });
+
+        RetirarPaquete.setText("Retirar Paquete");
+        RetirarPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RetirarPaqueteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBodegasLayout = new javax.swing.GroupLayout(panelBodegas);
+        panelBodegas.setLayout(panelBodegasLayout);
+        panelBodegasLayout.setHorizontalGroup(
+            panelBodegasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBodegasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBodegasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollpane3, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                    .addGroup(panelBodegasLayout.createSequentialGroup()
+                        .addComponent(mostrarBodegas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(RetirarPaquete)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+        panelBodegasLayout.setVerticalGroup(
+            panelBodegasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBodegasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollpane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelBodegasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrarBodegas)
+                    .addComponent(RetirarPaquete))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
 
-        tabbedPane1.addTab("Bodegas", jPanel4);
+        tabbedPane1.addTab("Bodegas", panelBodegas);
 
         cuentaMenu.setText("Cuenta");
 
@@ -470,7 +574,7 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(tabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -495,10 +599,17 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
         sistema.setContadorEnvios(0);
         rutaObservable.clear();
         sistema.MostrarTabla("rutas", "");
-        rutaObservable.addAll(sistema.getRutas());
+        ArrayList<Ruta> tmp = sistema.getRutas();
+        for (int i=0; i<tmp.size(); i++){
+            for (int j=i+1; j<tmp.size(); j++) {
+                if(tmp.get(i).getCod_D().equals(tmp.get(j).getCod_D())){
+                    tmp.remove(j);
+                }
+            }
+        }
+        rutaObservable.addAll(tmp);
         sistema.MostrarTabla("envios", "");
         enviosObservable.addAll(sistema.getEnvios());
-        sistema.setContadorEnvios(sistema.getContadorEnvios() + 1);
         enviosObservable.clear();
         idEnvioLabel.setText("Id Envio: " + sistema.getContadorEnvios());
         pesoText.setText(null);
@@ -700,39 +811,63 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buscarBotonActionPerformed
 
+    private void mostrarBodegasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarBodegasActionPerformed
+        String query = "SELECT * FROM envios WHERE ubicacion = " + "\"" + "Bod. Destino" + "\"";
+        sistema.MostrarTabla("envios", query);
+        enviosObservable.clear();
+        enviosObservable.addAll(sistema.getEnvios());
+    }//GEN-LAST:event_mostrarBodegasActionPerformed
+
+    private void RetirarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetirarPaqueteActionPerformed
+        if(envioSeleccionado != null){
+            String query = "UPDATE envios SET ubicacion = " + "\"" + "Entregado" + "\"" + " WHERE idEnvios = " + envioSeleccionado.getIdEnvios();
+            sistema.IngresarEliminarEnTabla(query);
+            
+            mostrarBodegasActionPerformed(evt);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un paquete para poder retirarlo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_RetirarPaqueteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RetirarPaquete;
     private javax.swing.JMenuItem aboutItem;
     protected javax.swing.JButton aceptarBoton;
     private javax.swing.JButton buscarBoton;
     private javax.swing.JButton cancelarBoton;
     protected javax.swing.JComboBox<String> categoriaCombo;
+    private javax.swing.JLabel categoriaLabel;
     private javax.swing.JMenuItem cerrarItem;
     private javax.swing.JButton continuarBoton;
     private javax.swing.JMenu cuentaMenu;
+    private javax.swing.JLabel destinoLabel;
     protected com.toedter.calendar.JDateChooser fechaChooser;
+    private javax.swing.JLabel fechaLabel;
     protected javax.swing.JLabel idEnvioLabel;
+    private javax.swing.JLabel idEnvioLabel2;
     private javax.swing.JTextField idEnvioText;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JButton mostrarBodegas;
+    private javax.swing.JPanel panelBodegas;
+    private javax.swing.JPanel panelBuscarPaquete;
+    private javax.swing.JPanel panelContinuar;
     private javax.swing.JPanel panelNuevoEnvio;
+    private javax.swing.JPanel panel_inicio;
+    private javax.swing.JLabel pesoLabel;
     protected javax.swing.JTextField pesoText;
     protected javax.swing.JRadioButton priorizarRadioBoton;
+    private javax.swing.JScrollPane scroll1;
+    private javax.swing.JScrollPane scroll2;
+    private javax.swing.JScrollPane scroll3;
+    private javax.swing.JScrollPane scroll4;
+    private javax.swing.JScrollPane scrollpane2;
+    private javax.swing.JScrollPane scrollpane3;
     protected javax.swing.JTabbedPane tabbedPane1;
+    private javax.swing.JTable tablaBodegas;
     private javax.swing.JTable tablaEnvio;
     protected javax.swing.JTable tablaRutas;
+    private javax.swing.JTable talblaBusqueda;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     
@@ -774,5 +909,13 @@ public class VentanaRecepcionista extends javax.swing.JFrame {
 
     public void setIdEnvio(int idEnvio) {
         this.idEnvio = idEnvio;
+    }
+
+    public Envios getEnvioSeleccionado() {
+        return envioSeleccionado;
+    }
+
+    public void setEnvioSeleccionado(Envios envioSeleccionado) {
+        this.envioSeleccionado = envioSeleccionado;
     }
 }

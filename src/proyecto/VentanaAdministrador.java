@@ -16,24 +16,30 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     String usuario;
     private Usuario usuarioSeleccionado;
     private PuntosDeControl puntoSeleccionado;
+    private Ruta rutaSeleccionada;
     
     private ObservableList<Usuario> usuariosObservable;
     private List<Usuario> listadoUsuario = new ArrayList<>();
     
     private ObservableList<Ruta> rutaObservable;
     private List<Ruta> listadoRuta = new ArrayList<>();
-    
     private ObservableList<PuntosDeControl> puntosObservable;
     private List<PuntosDeControl> listadoPuntos = new ArrayList<>();
     
     private ObservableList<Precios> preciosObservable;
     private List<Precios> listadoPrecios = new ArrayList<>();
     
+    private ObservableList<Cliente> clientesObservable;
+    private List<Cliente> listadoClientes = new ArrayList<>();
+    private Cliente clienteSeleccionado;
+    
+    
     public VentanaAdministrador(Sistema sistema, String usuario) {
         usuariosObservable = ObservableCollections.observableList(listadoUsuario);
         rutaObservable = ObservableCollections.observableList(listadoRuta);
         puntosObservable = ObservableCollections.observableList(listadoPuntos);
         preciosObservable = ObservableCollections.observableList(listadoPrecios);
+        clientesObservable = ObservableCollections.observableList(listadoClientes);
         this.sistema = sistema;
         this.usuario = usuario;
         initComponents();
@@ -53,12 +59,13 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         eliminarBoton = new javax.swing.JButton();
         nuevoBoton = new javax.swing.JButton();
         puntosDeControlPanel = new javax.swing.JPanel();
-        puntosScroll = new javax.swing.JScrollPane();
-        puntosTabla = new javax.swing.JTable();
         mostrarPuntos = new javax.swing.JButton();
         nuevoPCBoton = new javax.swing.JButton();
         eliminarPuntoBoton = new javax.swing.JButton();
         editarPunto = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         rutasPanel = new javax.swing.JPanel();
         mostrarRutas = new javax.swing.JButton();
         rutasScroll2 = new javax.swing.JScrollPane();
@@ -66,6 +73,13 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         rutasTabla = new javax.swing.JTable();
         nuevaRutaBoton = new javax.swing.JButton();
         eliminarRutaBoton = new javax.swing.JButton();
+        reporteRuta = new javax.swing.JButton();
+        clientesPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        mostrarClientes = new javax.swing.JButton();
+        reporteCliente = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         cuentaMenu = new javax.swing.JMenu();
         aboutItem = new javax.swing.JMenuItem();
@@ -93,8 +107,8 @@ public class VentanaAdministrador extends javax.swing.JFrame{
 
         usuariosScroll.setPreferredSize(new java.awt.Dimension(600, 400));
 
-        usuariosTabla.setMinimumSize(new java.awt.Dimension(600, 350));
-        usuariosTabla.setPreferredSize(new java.awt.Dimension(600, 350));
+        usuariosTabla.setMinimumSize(new java.awt.Dimension(600, 500));
+        usuariosTabla.setPreferredSize(new java.awt.Dimension(600, 500));
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${usuariosObservable}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, usuariosTabla);
@@ -172,57 +186,6 @@ public class VentanaAdministrador extends javax.swing.JFrame{
 
         panelTabbed.addTab("Usuarios", usuariosPanel);
 
-        puntosScroll.setMinimumSize(new java.awt.Dimension(600, 350));
-        puntosScroll.setPreferredSize(new java.awt.Dimension(600, 350));
-
-        puntosTabla.setMinimumSize(new java.awt.Dimension(640, 350));
-        puntosTabla.setPreferredSize(new java.awt.Dimension(640, 350));
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${puntosObservable}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, puntosTabla);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
-        columnBinding.setColumnName("Codigo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pais}"));
-        columnBinding.setColumnName("Pais");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
-        columnBinding.setColumnName("Ciudad");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
-        columnBinding.setColumnName("Tarifa");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
-        columnBinding.setColumnName("Tamaño Bodega");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
-        columnBinding.setColumnName("Encargado");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${puntoSeleccionado}"), puntosTabla, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
-        puntosScroll.setViewportView(puntosTabla);
-        if (puntosTabla.getColumnModel().getColumnCount() > 0) {
-            puntosTabla.getColumnModel().getColumn(0).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(0).setPreferredWidth(100);
-            puntosTabla.getColumnModel().getColumn(1).setMinWidth(150);
-            puntosTabla.getColumnModel().getColumn(1).setPreferredWidth(150);
-            puntosTabla.getColumnModel().getColumn(2).setMinWidth(150);
-            puntosTabla.getColumnModel().getColumn(2).setPreferredWidth(150);
-            puntosTabla.getColumnModel().getColumn(3).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(4).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(4).setPreferredWidth(100);
-            puntosTabla.getColumnModel().getColumn(5).setResizable(false);
-            puntosTabla.getColumnModel().getColumn(5).setPreferredWidth(180);
-        }
-
         mostrarPuntos.setText("Mostrar");
         mostrarPuntos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +214,54 @@ public class VentanaAdministrador extends javax.swing.JFrame{
             }
         });
 
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(599, 320));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(599, 320));
+
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(580, 1000));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(580, 1000));
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${puntosObservable}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigo}"));
+        columnBinding.setColumnName("Codigo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pais}"));
+        columnBinding.setColumnName("Pais");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCiudad}"));
+        columnBinding.setColumnName("Ciudad");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tamañoBodega}"));
+        columnBinding.setColumnName("TamañoBodega");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tarifa}"));
+        columnBinding.setColumnName("Tarifa");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${encargado}"));
+        columnBinding.setColumnName("Encargado");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${puntoSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(120);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(70);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(80);
+        }
+
+        jScrollPane3.setViewportView(jScrollPane2);
+
         javax.swing.GroupLayout puntosDeControlPanelLayout = new javax.swing.GroupLayout(puntosDeControlPanel);
         puntosDeControlPanel.setLayout(puntosDeControlPanelLayout);
         puntosDeControlPanelLayout.setHorizontalGroup(
@@ -258,32 +269,30 @@ public class VentanaAdministrador extends javax.swing.JFrame{
             .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
-                        .addComponent(puntosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addComponent(mostrarPuntos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nuevoPCBoton)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editarPunto)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(eliminarPuntoBoton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         puntosDeControlPanelLayout.setVerticalGroup(
             puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(puntosDeControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(puntosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(puntosDeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostrarPuntos)
                     .addComponent(nuevoPCBoton)
-                    .addComponent(eliminarPuntoBoton)
-                    .addComponent(editarPunto))
-                .addContainerGap(227, Short.MAX_VALUE))
+                    .addComponent(editarPunto)
+                    .addComponent(eliminarPuntoBoton))
+                .addGap(87, 87, 87))
         );
 
         panelTabbed.addTab("Puntos de Control", puntosDeControlPanel);
@@ -298,8 +307,8 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         rutasScroll2.setMinimumSize(new java.awt.Dimension(600, 350));
         rutasScroll2.setPreferredSize(new java.awt.Dimension(600, 350));
 
-        rutasScroll.setMinimumSize(new java.awt.Dimension(1150, 350));
-        rutasScroll.setPreferredSize(new java.awt.Dimension(1150, 350));
+        rutasScroll.setMinimumSize(new java.awt.Dimension(1150, 600));
+        rutasScroll.setPreferredSize(new java.awt.Dimension(1150, 600));
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${rutaObservable}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, rutasTabla);
@@ -348,7 +357,9 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${rutaSeleccionada}"), rutasTabla, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         rutasScroll.setViewportView(rutasTabla);
         if (rutasTabla.getColumnModel().getColumnCount() > 0) {
             rutasTabla.getColumnModel().getColumn(0).setMinWidth(60);
@@ -377,6 +388,18 @@ public class VentanaAdministrador extends javax.swing.JFrame{
         });
 
         eliminarRutaBoton.setText("Eliminar Ruta");
+        eliminarRutaBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarRutaBotonActionPerformed(evt);
+            }
+        });
+
+        reporteRuta.setText("Reporte de Ruta");
+        reporteRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteRutaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout rutasPanelLayout = new javax.swing.GroupLayout(rutasPanel);
         rutasPanel.setLayout(rutasPanelLayout);
@@ -392,6 +415,8 @@ public class VentanaAdministrador extends javax.swing.JFrame{
                         .addComponent(nuevaRutaBoton)
                         .addGap(18, 18, 18)
                         .addComponent(eliminarRutaBoton)
+                        .addGap(18, 18, 18)
+                        .addComponent(reporteRuta)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -404,11 +429,103 @@ public class VentanaAdministrador extends javax.swing.JFrame{
                 .addGroup(rutasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostrarRutas)
                     .addComponent(nuevaRutaBoton)
-                    .addComponent(eliminarRutaBoton))
+                    .addComponent(eliminarRutaBoton)
+                    .addComponent(reporteRuta))
                 .addContainerGap(217, Short.MAX_VALUE))
         );
 
         panelTabbed.addTab("Rutas", rutasPanel);
+
+        jScrollPane5.setMinimumSize(new java.awt.Dimension(599, 320));
+        jScrollPane5.setPreferredSize(new java.awt.Dimension(599, 320));
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(800, 600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${clientesObservable}");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable2);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id_Cliente}"));
+        columnBinding.setColumnName("idCliente");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nit}"));
+        columnBinding.setColumnName("Nit");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${telefono}"));
+        columnBinding.setColumnName("Telefono");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${email}"));
+        columnBinding.setColumnName("Email");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${direccion}"));
+        columnBinding.setColumnName("Direccion");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${clienteSeleccionado}"), jTable2, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane1.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable2.getColumnModel().getColumn(1).setMinWidth(70);
+            jTable2.getColumnModel().getColumn(1).setPreferredWidth(70);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(180);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(180);
+            jTable2.getColumnModel().getColumn(3).setMinWidth(70);
+            jTable2.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jTable2.getColumnModel().getColumn(4).setMinWidth(180);
+            jTable2.getColumnModel().getColumn(4).setPreferredWidth(180);
+            jTable2.getColumnModel().getColumn(5).setMinWidth(220);
+            jTable2.getColumnModel().getColumn(5).setPreferredWidth(220);
+        }
+
+        jScrollPane5.setViewportView(jScrollPane1);
+
+        mostrarClientes.setText("Mostrar");
+        mostrarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarClientesActionPerformed(evt);
+            }
+        });
+
+        reporteCliente.setText("Reporte de Cliente");
+        reporteCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteClienteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout clientesPanelLayout = new javax.swing.GroupLayout(clientesPanel);
+        clientesPanel.setLayout(clientesPanelLayout);
+        clientesPanelLayout.setHorizontalGroup(
+            clientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clientesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(clientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(clientesPanelLayout.createSequentialGroup()
+                        .addComponent(mostrarClientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(reporteCliente)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        clientesPanelLayout.setVerticalGroup(
+            clientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clientesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(clientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrarClientes)
+                    .addComponent(reporteCliente))
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        panelTabbed.addTab("Clientes", clientesPanel);
 
         cuentaMenu.setText("Cuenta");
 
@@ -434,7 +551,7 @@ public class VentanaAdministrador extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelTabbed, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,17 +640,63 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     private void editarPuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPuntoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editarPuntoActionPerformed
+
+    private void eliminarRutaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarRutaBotonActionPerformed
+        if(rutaSeleccionada != null){
+        
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione una ruta para poder eliminarla", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_eliminarRutaBotonActionPerformed
+
+    private void reporteRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteRutaActionPerformed
+        if(rutaSeleccionada != null){
+            ReporteRutas reporte = new ReporteRutas(this, sistema, rutaSeleccionada);
+            reporte.setLocationRelativeTo(null);
+            reporte.inicializarComponentes();
+            reporte.setVisible(true);
+        
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione una ruta para poder visualisar su reporte", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_reporteRutaActionPerformed
+
+    private void mostrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarClientesActionPerformed
+        clientesObservable.clear();
+        sistema.MostrarTabla("clientes", "");
+        clientesObservable.addAll(sistema.getClientes());
+    }//GEN-LAST:event_mostrarClientesActionPerformed
+
+    private void reporteClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteClienteActionPerformed
+        if(clienteSeleccionado != null){
+            ReporteClientes reporte = new ReporteClientes(this, sistema, clienteSeleccionado);
+            reporte.setLocationRelativeTo(null);
+            reporte.inicializarComponentes();
+            reporte.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente para poder visualisar su reporte", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_reporteClienteActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutItem;
     private javax.swing.JMenuItem cerrarSesionItem;
+    private javax.swing.JPanel clientesPanel;
     private javax.swing.JMenu cuentaMenu;
     private javax.swing.JButton editarPunto;
     private javax.swing.JButton eliminarBoton;
     private javax.swing.JButton eliminarPuntoBoton;
     private javax.swing.JButton eliminarRutaBoton;
     private javax.swing.JPanel inicioPanel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JButton mostrarClientes;
     private javax.swing.JButton mostrarPuntos;
     private javax.swing.JButton mostrarRutas;
     protected javax.swing.JButton mostrarUsuarios;
@@ -542,8 +705,8 @@ public class VentanaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton nuevoPCBoton;
     private javax.swing.JTabbedPane panelTabbed;
     private javax.swing.JPanel puntosDeControlPanel;
-    private javax.swing.JScrollPane puntosScroll;
-    private javax.swing.JTable puntosTabla;
+    private javax.swing.JButton reporteCliente;
+    private javax.swing.JButton reporteRuta;
     private javax.swing.JPanel rutasPanel;
     private javax.swing.JScrollPane rutasScroll;
     private javax.swing.JScrollPane rutasScroll2;
@@ -601,5 +764,29 @@ public class VentanaAdministrador extends javax.swing.JFrame{
 
     public void setPreciosObservable(ObservableList<Precios> preciosObservable) {
         this.preciosObservable = preciosObservable;
+    }
+
+    public Ruta getRutaSeleccionada() {
+        return rutaSeleccionada;
+    }
+
+    public void setRutaSeleccionada(Ruta rutaSeleccionada) {
+        this.rutaSeleccionada = rutaSeleccionada;
+    }
+
+    public ObservableList<Cliente> getClientesObservable() {
+        return clientesObservable;
+    }
+
+    public void setClientesObservable(ObservableList<Cliente> clientesObservable) {
+        this.clientesObservable = clientesObservable;
+    }
+
+    public Cliente getClienteSeleccionado() {
+        return clienteSeleccionado;
+    }
+
+    public void setClienteSeleccionado(Cliente clienteSeleccionado) {
+        this.clienteSeleccionado = clienteSeleccionado;
     }
 }
